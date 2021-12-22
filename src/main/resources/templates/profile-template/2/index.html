@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
 	<title>Responsive Resume</title>
@@ -20,7 +20,7 @@
 	
 	<!-- Header-->
 	<header>
-		<h1>Your Name</h1>
+		<h1 th:text="${userProfile.firstName} + ' ' + ${userProfile.lastName}">Your Name</h1>
 		<p>Job Title or Skill Set</p>
 	</header>
 	
@@ -29,7 +29,7 @@
 		<!-- Introduction-->
 		<section class="center">
 			<h1>Welcome!</h1>
-			<p>
+			<p th:text="${userProfile.summary}">
 				This is a good place to introduce yourself. What do you love to do? Where are you from? What is your current job?
 				This also might be a good place to link to your resume, email, or portfolio as well.
 			</p>
@@ -103,46 +103,43 @@
 		<hr>
 			
 		<!--Experience Tables-->
-		<section class="experience">
+		<section class="experience" th:each="jobHistory: ${userProfile.jobHistories}">
 			<div class="row">
 				<div class="grid-2">
 					<h2>Company Name</h2>
-					<p>Nov. 2013 - Dec. 2014</p>
+					<p th:text="${#calendars.format(jobHistory.fromDate,'MMMM. yyyy')} + ' - ' +
+						(${jobHistory.isCurrentJob} ? 'present' : ${#calendars.format(jobHistory.toDate, 'MMMM. yyyy')}) " >Nov. 2013 - Dec. 2014</p>
 				</div>
 				<div class="grid-4">
-					<ul>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities. This is an example of a longer block with more text.</li>
-					</ul>
+					<p th:text="${jobHistory.summary}">Job summary</p>
 				</div>
 			</div>
-			<div class="row">
-				<div class="grid-2">
-					<h2>Company Name</h2>
-					<p>Sept. 2012 - Nov. 2013</p>
-				</div>
-				<div class="grid-4">
-					<ul>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities. This is an example of a longer block with more text.</li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="grid-2">
-					<h2>Company Name</h2>
-					<p>Aug. 2011 - Sept. 2012</p>
-				</div>
-				<div class="grid-4">
-					<ul>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities</li>
-						<li>This is a place to give highlights of your work and responsibilities. This is an example of a longer block with more text.</li>
-					</ul>
-				</div>
-			</div>
+<!--			<div class="row">-->
+<!--				<div class="grid-2">-->
+<!--					<h2>Company Name</h2>-->
+<!--					<p>Sept. 2012 - Nov. 2013</p>-->
+<!--				</div>-->
+<!--				<div class="grid-4">-->
+<!--					<ul>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities</li>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities</li>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities. This is an example of a longer block with more text.</li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="row">-->
+<!--				<div class="grid-2">-->
+<!--					<h2>Company Name</h2>-->
+<!--					<p>Aug. 2011 - Sept. 2012</p>-->
+<!--				</div>-->
+<!--				<div class="grid-4">-->
+<!--					<ul>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities</li>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities</li>-->
+<!--						<li>This is a place to give highlights of your work and responsibilities. This is an example of a longer block with more text.</li>-->
+<!--					</ul>-->
+<!--				</div>-->
+<!--			</div>-->
 		</section>
 		
 		<hr>
