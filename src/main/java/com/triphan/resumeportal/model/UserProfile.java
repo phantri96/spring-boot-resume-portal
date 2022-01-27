@@ -27,15 +27,23 @@ public class UserProfile {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_job_history_relation",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "job_history_id", referencedColumnName = "id")
+    @Column(name = "summary")
+    private String summary;
+
+    @ElementCollection
+    @JoinTable(name = "user_skill",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
+    @Column(name = "skill")
+    private List<String> skills;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private List<JobHistory> jobHistories;
 
-    private String summary;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<Education> educations;
 
     public long getId() {
         return id;
@@ -99,5 +107,21 @@ public class UserProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Education> getEducations() {
+        return educations;
+    }
+
+    public void setEducations(List<Education> educations) {
+        this.educations = educations;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
     }
 }

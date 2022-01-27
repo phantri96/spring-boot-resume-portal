@@ -96,8 +96,8 @@
 	<!-- New container-->
 	<div class="container">
 	
-		<section class="education">	
-			<h2>B.S. Information Systems and Operations Management from the University of Maryland.</h2>
+		<section class="education" th:each="education : ${userProfile.educations}">
+			<h2 th:text="${education.schoolName}">B.S. Information Systems and Operations Management from the University of Maryland.</h2>
 		</section>
 		
 		<hr>
@@ -112,6 +112,9 @@
 				</div>
 				<div class="grid-4">
 					<p th:text="${jobHistory.summary}">Job summary</p>
+					<ul th:each="responsibility : ${jobHistory.responsibilities}">
+						<li th:text="${responsibility}">This is a place to give highlights of your work and responsibilities</li>
+					</ul>
 				</div>
 			</div>
 <!--			<div class="row">-->
@@ -149,13 +152,13 @@
 			<div class="row">
 				<div class="grid-2">
 					<h1>Skills</h1>
-					<ul>
-						<li>HTML</li>
-						<li>CSS</li>
-						<li>Javascript</li>
-						<li>Angular.js</li>
-						<li>Photoshop</li>
-						<li>Git</li>
+					<ul th:each="skill : ${userProfile.skills}">
+						<li th:text="${skill}">HTML</li>
+<!--						<li>CSS</li>-->
+<!--						<li>Javascript</li>-->
+<!--						<li>Angular.js</li>-->
+<!--						<li>Photoshop</li>-->
+<!--						<li>Git</li>-->
 					</ul>
 				</div>
 				
